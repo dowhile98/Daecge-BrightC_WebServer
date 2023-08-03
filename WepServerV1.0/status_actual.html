@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRIGHT-C</title>
+    <!-- tema-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+    rel = "stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <!-- estilo-->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h1>BRIGHT-C</h1>
+    <div class="insights">
+        <div class="air">
+            <span class="material-symbols-sharp">heat_pump</span>
+            <div class="middle">
+                <div class="left">
+                    <h3>Total de Aires Acondicionados</h3>
+                    <h1>4</h1>
+                </div>
+            </div>
+        </div>
+        <!-- END AA-->
+        <div class="temp1">
+            <span class="material-symbols-sharp">device_thermostat</span>
+            <div class="middle">
+                <div class="left">
+                    <h3>Sensor de Temperatura 1</h3>
+                    <h1>20.2 °C</h1>
+                </div>
+            </div>
+        </div>
+        <!--END CONFIG-->
+        <div class="temp2">
+            <span class="material-symbols-sharp">device_thermostat</span>
+            <div class="middle">
+                <div class="left">
+                    <h3>Sensor de Temperatura 2</h3>
+                    <h1>12.3 °C</h1>
+                </div>
+            </div>
+        </div> 
+        <!--end temp-->                
+    </div>
+    <!-- END OF ENSIGHTS-->
+    <div class="actual-status" id="estado-aires-acondicionados">
+        <h2>ESTADO ACTUAL DE LOS AIRES ACONDICIONADOS</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aire acondicionado</th>
+                    <th>Turno</th>
+                    <th>Estado</th>
+                    <th>¿Ayuda?</th>
+                    <th>Contador de fallas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aire Acondicionado 1</td>
+                    <td>Activo</td>
+                    <td>Apagado</td>
+                    <td class="warning">NO</td>
+                    <td class="primary">0</td>
+                </tr>
+                <tr>
+                    <td>Aire Acondicionado 2</td>
+                    <td>Activo</td>
+                    <td>Apagado</td>
+                    <td class="warning">NO</td>
+                    <td class="primary">0</td>
+                </tr>
+                <tr>
+                    <td>Aire Acondicionado 3</td>
+                    <td>Activo</td>
+                    <td>Apagado</td>
+                    <td class="warning">NO</td>
+                    <td class="primary">0</td>
+                </tr>
+                <tr>
+                    <td>Aire Acondicionado 4</td>
+                    <td>no Activo</td>
+                    <td>Apagdo</td>
+                    <td class="warning">NO</td>
+                    <td class="primary">0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--ALARMAS-->
+    <div class="alarms">
+        <h2>ALARMAS</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BYPAS</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de suministro AA1</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de alta/baja presión AA1</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de suministro AA2</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de alta/baja presión AA2</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de suministro AA3</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de alta/baja presión AA3</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de suministro AA4</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de alta/baja presión AA4</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de incendio</td>
+                    <td>activo</td>
+                </tr>
+                <tr>
+                    <td>Alarma de alta Temperatura</td>
+                    <td>activo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>

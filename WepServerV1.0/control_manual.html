@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/control_manual.css">
+    <title>Control Manual</title>
+</head>
+<body>
+    <h1>BRIGHT-C</h1><br>
+    <h1>Control Manual</h1>
+    <div class="control-section">
+        <h2>Reinicio de Contador de Fallas</h2>
+        <button id="reiniciarFallasBtn">Reiniciar Contador</button>
+    </div>
+    
+    <div class="control-section">
+        <h2>Reinicio de Contador de Energía</h2>
+        <button id="reiniciarEnergiaBtn">Reiniciar Contador</button>
+    </div>
+    
+    <div class="control-section">
+        <h2>Modo Bypass</h2>
+        <label class="switch">
+        <input type="checkbox" id="modoBypass">
+        <span class="slider"></span>
+        </label>
+    </div>
+    
+    <div class="control-section">
+        <h2>Modo Manual</h2>
+        <label class="switch">
+        <input type="checkbox" id="modoManual">
+        <span class="slider"></span>
+        </label>
+        
+        <div class="control-subsection" id="controlAAs">
+        <div class="on-off-switch">
+            <label for="aa1">AA1</label>
+            <label class="switch">
+            <input type="checkbox" id="aa1">
+            <span class="slider"></span>
+            </label>
+        </div>
+        <div class="on-off-switch">
+            <label for="aa2">AA2</label>
+            <label class="switch">
+            <input type="checkbox" id="aa2">
+            <span class="slider"></span>
+            </label>
+        </div>
+        <div class="on-off-switch">
+            <label for="aa3">AA3</label>
+            <label class="switch">
+            <input type="checkbox" id="aa3">
+            <span class="slider"></span>
+            </label>
+        </div>
+        <div class="on-off-switch">
+            <label for="aa4">AA4</label>
+            <label class="switch">
+            <input type="checkbox" id="aa4">
+            <span class="slider"></span>
+            </label>
+        </div>
+        </div>
+    </div>      
+    <script src="./js/control_manual.js"></script>
+</body>
+</html>

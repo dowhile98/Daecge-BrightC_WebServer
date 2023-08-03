@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/configuracion.css">
+    <title>Configuración</title>
+</head>
+<body>
+    <h1>BRIGHT-C</h1><br>
+    <h1>Configuración</h1>
+    <form id="config-form">
+        <div class="form-group">
+            <label for="cantidad-aires">Cantidad de Aires Acondicionados:</label>
+            <select id="cantidad-aires" name="cantidad-aires">
+                <option value="1">1 AA</option>
+                <option value="2">2 AA</option>
+                <option value="3">3 AA</option>
+                <option value="4">4 AA</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dias-secuencia">Días de Secuencia:</label>
+            <select id="dias-secuencia" name="dias-secuencia">
+                <option value="7">7 días</option>
+                <option value="15">15 días</option>
+                <option value="20">20 días</option>
+                <option value="30">30 días</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="tiempo-enfriar">Tiempo Máximo para Enfriar (minutos):</label>
+            <input type="number" id="tiempo-enfriar" name="tiempo-enfriar" min="2" required="true">
+        </div>
+        <div class="form-group">
+            <label for="temp-minima">Temperatura Mínima:</label>
+            <input type="number" id="temp-minima" name="temp-minima" step="0.1" required="true">
+        </div>
+        <div class="form-group">
+            <label for="temp-maxima">Temperatura Máxima:</label>
+            <input type="number" id="temp-maxima" name="temp-maxima" step="0.1" required="true">
+        </div>
+        <div class="form-group">
+            <label for="temp-alarma">Temperatura Alarma:</label>
+            <input type="number" id="temp-alarma" name="temp-alarma" step="0.1" required="true">
+        </div>
+        <div class="form-group">
+            <label for="temp-bypass">Temperatura Bypass:</label>
+            <input type="number" id="temp-bypass" name="temp-bypass" step="0.1" required="true">
+        </div>
+        <button class="button" type="submit">Confirmar Configuración</button>
+    </form>
+    <script src="./js/configuracion.js"></script>
+</body>
+</html>
