@@ -1,0 +1,63 @@
+body {
+    font-family: "Arial", sans-serif; /* Cambia el tipo de fuente para toda la página */
+    background-color: #f6f9f9;
+}
+#menu {
+    width: 200px;
+    background-color: #e0e0e0; /* Cambia el color a un gris claro o celeste claro */
+    color: #333; /* Cambia el color del texto */
+    float: left;
+    font-family: "Arial", sans-serif;
+    border-right: 2px solid #ccc; /* Añade un borde a la derecha del menú */
+    border-top-left-radius: 10px; /* Agrega bordes curvos en la esquina superior izquierda */
+    border-bottom-left-radius: 10px; /* Agrega bordes curvos en la esquina inferior izquierda */
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#menu ul li {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc; /* Añade un borde en la parte inferior de cada elemento del menú */
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #333; /* Cambia el color del texto del enlace */
+    display: block;
+}
+
+#menu ul li:hover {
+    background-color: #ccc; /* Cambia el color al pasar el mouse sobre el elemento del menú */
+}
+
+#menu ul li.selected {
+    background-color: #ccc; /* Cambia el color del elemento seleccionado */
+}
+
+#contenido {
+    margin-left: 220px;
+    padding: 20px;
+}
+#menu ul li.selected a {
+    font-weight: bold; /* Aplica negrita al texto del menú seleccionado */
+}
+#title {
+    background-color: #e0e0e0; /* Fondo de color claro que combina con el texto */
+    color: #1e1e1e; /* Color del texto */
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 10px; /* Agrega bordes curvos en la esquina superior izquierda */
+    border-top-right-radius: 10px; /* Agrega bordes curvos en la esquina superior derecha */
+}
+
+#title h1 {
+    font-size: 36px;
+    margin: 0;
+}
+
+
