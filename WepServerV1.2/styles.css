@@ -9,8 +9,7 @@ body {
     float: left;
     font-family: "Arial", sans-serif;
     border-right: 2px solid #ccc; /* Añade un borde a la derecha del menú */
-    border-top-left-radius: 10px; /* Agrega bordes curvos en la esquina superior izquierda */
-    border-bottom-left-radius: 10px; /* Agrega bordes curvos en la esquina inferior izquierda */
+    border-radius: 15px
 }
 
 #menu ul {
@@ -51,13 +50,64 @@ body {
     color: #1e1e1e; /* Color del texto */
     padding: 10px;
     text-align: center;
-    border-top-left-radius: 10px; /* Agrega bordes curvos en la esquina superior izquierda */
-    border-top-right-radius: 10px; /* Agrega bordes curvos en la esquina superior derecha */
+    border-radius: 15px;
 }
 
 #title h1 {
     font-size: 36px;
     margin: 0;
 }
+.temperatura-sensor {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 5px auto; /* Centrar horizontalmente con margen automático */
+    border-radius: 15px;
+}
 
+.estado-aire {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente en el contenedor */
+}
 
+.aire {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.encendido {
+    background-color: green;
+}
+
+.apagado {
+    background-color: red;
+}
+
+.temperatura-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.aires-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.etiqueta-aire {
+    font-weight: bold;
+    margin-right: 10px;
+}
