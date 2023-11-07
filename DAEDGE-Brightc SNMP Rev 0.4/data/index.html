@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRIGHT-C</title>
+    <!-- estilo-->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2><span>BRI</span class="danger">GHT-C</span></h2>
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="#" data-option="estatus-actual" onclick="showContent('estatus-actual')">
+                    <!-- <span class="material-symbols-sharp">grid_view</span> -->
+                    <h3>Estatus actual</h3>
+                </a>
+                <a href="#" data-option="configuracion" onclick="showContent('configuracion')">
+                    <!-- <span class="material-symbols-sharp">settings</span> -->
+                    <h3>Configuracion</h3>
+                </a>
+                <a href="#" data-option="control-manual" onclick="showContent('control-manual')">
+                    <!-- <span class="material-symbols-sharp">tune</span> -->
+                    <h3>Control Manual</h3>
+                </a>
+                <a href="#" data-option="medidor-electrico" onclick="showContent('medidor-electrico')">
+                    <!-- <span class="material-symbols-sharp">electric_meter</span> -->
+                    <h3>Medidor Electrico</h3>
+                </a>
+                <a href="/update" data-option="update" onclick="showContent('update')">
+                    <!-- <span class="material-symbols-sharp">info </span> -->
+                    <h3>Update</h3>
+                </a>
+            </div>            
+        </aside>
+        <!-- END OF ASIDE-->
+        <main class="content" id="content">
+            <h2>Bienvenido al servidor Web <b>BrigthC</b></h2>
+            <h3>Selecciona una de las opciones del menú</h3>
+        </main>
+        <!-- END MAIN-->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                <!-- <span class="material-symbols-sharp">menu</span> -->
+                </button>
+            </div>
+            <div class="theme-toggler">
+                <!-- <span class="material-symbols-sharp active">light_mode</span> -->
+                <!-- <span class="material-symbols-sharp">dark_mode</span>    -->
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p><b>Corporacion Daecge</b></p>
+                    <small class="text-muted">Telf: +51 960326513</small>
+                </div>
+            </div>
+            <!--END TOP-->
+            <div class="recent-updates">
+                <h2>CONFIGURACION ACTUAL</h2>
+                <div class="configBright">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Configuracion</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cantidad de AA:</td>
+                                <th id="cantAAC">-</th>
+                            </tr>
+                            <tr>
+                                <td>Dias de secuencia:</td>
+                                <th id="DSEC">-</th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Min:</td>
+                                <th id="TMINC"><p> - °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Max:</td>
+                                <th id="TMAXC"><p> - °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Alarma:</td>
+                                <th id="TALC"><p>- °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Bypass:</td>
+                                <th id="TBYC"><p>- °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Tiempo Max. para enfriado(minutos):</td>
+                                <th id="MINC">- min</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
