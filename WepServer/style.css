@@ -153,6 +153,7 @@ aside .logo img{
     width: 2rem;
     height: 2rem;
 }
+
 aside .close{
     display: none;
 }
@@ -219,26 +220,28 @@ aside .sidebar a:hover span{
     margin-left: 1rem;
 }
 
-
 /*MAIN-----------------------------*/
 main{
     margin-top: 1.4rem;
+}
+
+main .date{
+    display: inline-block;
+    background: var(--color-light);
+    border-radius: var(--border-radius-1);
+    margin-top: 1rem;
+    padding: 0.5rem 1.6rem;
+}
+
+main .date input[type='date']{
+    background: transparent;
+    color: var(--color-dark);
 }
 
 main .insights {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.6rem;
-}
-main .insights .temp1 h1{
-    font-size: 2rem;
-    text-align: center;
-    color: rgb(0, 204, 255);
-}
-main .insights .temp2 h1{
-    font-size: 2rem;
-    text-align: center;
-    color: rgb(0, 204, 255);
 }
 main .insights > div{
     background: var(--color-white);
@@ -261,16 +264,18 @@ main .insights > div span{
     font-size: 2rem;
 }
 
-main .insights > div.temp1 span{
-    background: var(--color-warning);
+main .insights > div.settings span{
+    background: var(--color-success);
 }
 
-main .insights > div.temp2 span{
-    background: var(--color-warning);
+main .insights > div.alarms span{
+    background: var(--color-danger);
 }
 main .insights > div.temp span{
     background: var(--color-warning);
 }
+
+
 main .insights > div .middle{
     display: flex;
     align-items: center;
@@ -282,19 +287,78 @@ main .insights h3{
     font-size: 1rem;
 }
 
+main .insights .progress{
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+}
+
+main .insights svg{
+    width: 7rem;
+    height: 7rem;
+}
+
+main .insights svg circle{
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 14;
+    stroke-linecap: round;
+    transform: translate(5px, 5px);
+    stroke-dasharray: 110;
+    stroke-dashoffset: 92;
+
+
+}
+
+main .insights .air svg circle{
+    stroke-dashoffset: -30;
+    stroke-dasharray: 200;
+}
+
+main .insights .setting svg circle{
+    stroke-dashoffset: 20;
+    stroke-dasharray: 80;
+}
+
+main .insights .alarms svg circle{
+    stroke-dashoffset: 39;
+    stroke-dasharray: 110;
+}
+
+main .insights .alarms svg circle{
+    stroke-dashoffset: 39;
+    stroke-dasharray: 110;
+}
+main .insights .temp svg circle{
+    stroke-dashoffset: 10;
+    stroke-dasharray: 110;
+}
+
+main .insights .progress .number{
+    position: absolute;
+    top:  0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 main .insights small{
     margin-top: 1.3rem;
     display: block;
 }
 
 /* ========================RECENT ORDER ================================*/
-main .actual-status{
+main .recent-orders{
     margin-top: 2rem;
 }
-main .actual-status h2 {
+main .recent-orders h2 {
     margin-bottom: 0.8rem;
 }
-main .actual-status table {
+main .recent-orders table {
     background: var(--color-white);
     width: 100%;
     border-radius: var(--card-border-radius);
@@ -304,7 +368,7 @@ main .actual-status table {
     transition: all 300ms ease;
 }
 
-main .actual-status table:hover{
+main .recent-orders table:hover{
     box-shadow: none;
 }
 
@@ -318,41 +382,13 @@ main table tbody tr:last-child td{
     border: none;
 }
 
-main .actual-status a{
+main .recent-orders a{
     text-align: center;
     display: block;
     margin: 1rem auto;
     color: var(--color-primary);
 }
 
-/* ALARMS */
-main .alarms{
-    margin-top: 2rem;
-}
-main .alarms h2 {
-    margin-bottom: 0.8rem;
-}
-main .alarms table {
-    background: var(--color-white);
-    width: 100%;
-    border-radius: var(--card-border-radius);
-    padding: var(--card-padding);
-    text-align: center;
-    box-shadow: var(--box-shadow);
-    transition: all 300ms ease;
-}
-
-main .alarms table:hover{
-    box-shadow: none;
-}
-
-
-main .alarms a{
-    text-align: center;
-    display: block;
-    margin: 1rem auto;
-    color: var(--color-primary);
-}
 /* ====================RIGHT ====================*/
 .right{
     margin-top: 1.4rem;
@@ -399,26 +435,28 @@ main .alarms a{
     text-align: right;
 }
 
-
-/*settings*/
-
-.recent-updates {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: var(--color-white);
-    border-radius: 8px;
+/* RECENT UPDATES */
+.right .recent-updates{
+    margin-top: 1rem;
+}
+.right .recent-updates h2{
+    margin-bottom: 0.8rem;
+}
+.right .recent-updates .updates{
+    background: var(--color-white);
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
     box-shadow: var(--box-shadow);
-    padding: 20px;
-}
-.recent-updates table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-.recent-updates th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #dddddd;
+    transition: all 300ms ease;
 }
 
+.right .recent-updates .updates:hover{
+    box-shadow: none;
+}
 
+.right .recent-updates .updates .update{
+    display: grid;
+    grid-template-columns: 2.6rem auto;
+    gap: 1rem;
+    margin: 1rem;
+}

@@ -1,0 +1,12 @@
+{
+    "Name":"ESP32",         
+    "SEC_CANT_AA": 4,
+    "SEC_DIAS": 7,
+    "SEC_TMP_MAX": 23.0,
+    "SEC_TMP_MIN": 19,
+    "SEC_T_ALARMA": 25,
+    "SEC_T_BYPASS":28,
+    "TIM_ENFRIO_SP":2,
+    "IP_Device":"192.168.1.120",
+    "ID": "322398239240"
+}

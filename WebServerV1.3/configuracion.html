@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRIGHT-C</title>
+    <!-- tema-->
+    <!-- estilo-->
+    <link rel="stylesheet" href="./css/configuracion.css">
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <h2><span>BRI</span class="danger">GHT-C</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <!-- <span class="material-icons-sharp">close</span>    -->
+                </div>
+            </div>
+            <div class="sidebar">
+                <a href="./index.html">
+                    <!-- <span class="material-symbols-sharp">grid_view</span> -->
+                    <h3>Estatus actual</h3>
+                </a>
+                <a href="./configuracion.html">
+                    <!-- <span class="material-symbols-sharp">settings</span> -->
+                    <h3>Configuracion</h3>
+                </a>
+                <a href="./control_manual.html">
+                    <!-- <span class="material-symbols-sharp">tune</span> -->
+                    <h3>Control Manual</h3>
+                </a>
+                <a href="./medidor_electrico.html">
+                    <!-- <span class="material-symbols-sharp">electric_meter</span> -->
+                    <h3>Medidor Electrico</h3>
+                </a>
+                <a href="./informacion.html">
+                    <!-- <span class="material-symbols-sharp">info </span> -->
+                    <h3>Info</h3>
+                </a>
+            </div>
+        </aside>
+        <!-- END OF ASIDE-->
+        <main class="content" id="content">
+            <h1 class="titulo">Configuración</h1>
+            <form id="config-form">
+                <div class="form-group">
+                    <label for="cantidad-aires">Cantidad de Aires Acondicionados:</label>
+                    <select id="cantidad-aires" name="cantidad-aires">
+                        <option value="1">1 AA</option>
+                        <option value="2">2 AA</option>
+                        <option value="3">3 AA</option>
+                        <option value="4">4 AA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dias-secuencia">Días de Secuencia:</label>
+                    <select id="dias-secuencia" name="dias-secuencia">
+                        <option value="7">7 días</option>
+                        <option value="15">15 días</option>
+                        <option value="20">20 días</option>
+                        <option value="30">30 días</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tiempo-enfriar">Tiempo Máximo para Enfriar (minutos):</label>
+                    <input type="number" id="tiempo-enfriar" name="tiempo-enfriar" min="2" required="true">
+                </div>
+                <div class="form-group">
+                    <label for="temp-minima">Temperatura Mínima:</label>
+                    <input type="number" id="temp-minima" name="temp-minima" step="0.1" required="true">
+                </div>
+                <div class="form-group">
+                    <label for="temp-maxima">Temperatura Máxima:</label>
+                    <input type="number" id="temp-maxima" name="temp-maxima" step="0.1" required="true">
+                </div>
+                <div class="form-group">
+                    <label for="temp-alarma">Temperatura Alarma:</label>
+                    <input type="number" id="temp-alarma" name="temp-alarma" step="0.1" required="true">
+                </div>
+                <div class="form-group">
+                    <label for="temp-bypass">Temperatura Bypass:</label>
+                    <input type="number" id="temp-bypass" name="temp-bypass" step="0.1" required="true">
+                </div>
+                <button class="button" type="submit">Confirmar Configuración</button>
+            </form>
+        </main>
+        <!-- END MAIN-->
+        <div class="right">
+            <div class="top">
+                <button id="menu-btn">
+                <!-- <span class="material-symbols-sharp">menu</span> -->
+                </button>
+            </div>
+            <div class="theme-toggler">
+                <!-- <span class="material-symbols-sharp active">light_mode</span> -->
+                <!-- <span class="material-symbols-sharp">dark_mode</span>    -->
+            </div>
+            <div class="profile">
+                <div class="info">
+                    <p><b>Corporacion Daecge</b></p>
+                    <small class="text-muted">Telf: +51 960326513</small>
+                </div>
+            </div>
+            <div class="recent-updates">
+                <h2>CONFIGURACION ACTUAL</h2>
+                <div class="configBright">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Configuracion</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cantidad de AA:</td>
+                                <th id="cantAAC">-</th>
+                            </tr>
+                            <tr>
+                                <td>Dias de secuencia:</td>
+                                <th id="DSEC">-</th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Min:</td>
+                                <th id="TMINC"><p> - °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Max:</td>
+                                <th id="TMAXC"><p> - °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Alarma:</td>
+                                <th id="TALC"><p>- °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Temperatura Bypass:</td>
+                                <th id="TBYC"><p>- °C</p></th>
+                            </tr>
+                            <tr>
+                                <td>Tiempo Max. para enfriado(minutos):</td>
+                                <th id="MINC">- min</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/configuracion.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
