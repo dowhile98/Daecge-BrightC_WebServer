@@ -32,6 +32,9 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <BrigthC_App.h>
+#include <ArduinoJson.h>
+#include "SNMP.h"
+
 /*Defines ----------------------------------------------------------------------------------*/
 #define __DEBUG_SESRIAL
 /**
@@ -142,7 +145,8 @@ extern Measurements_t sensorData;
 extern Input_val_t dataIn;
 /*Extern RTOS definition -------------------------------------------------------------*/
 extern SemaphoreHandle_t tempReadMutex;
-
+extern SemaphoreHandle_t mibMutex;
+extern SemaphoreHandle_t ethernetMutex;
 extern QueueHandle_t lcd_queue;
 extern QueueHandle_t buzer_queue;
 
@@ -153,12 +157,45 @@ extern EventGroupHandle_t controlEvents;
 extern EventGroupHandle_t errorEvents;
 extern EventGroupHandle_t systemEvents;
 extern EventGroupHandle_t bypasState;
+
+extern QueueHandle_t command_queue;
 /*Extern object instances ------------------------------------------------------------*/
 extern DallasTemperature DSB1;
 extern DallasTemperature DSB2;
-extern LiquidCrystal_I2C lcd(LCD_ADDR, 16, 2);
+extern LiquidCrystal_I2C lcd;
 extern PCF8574 PCF2;  //A0=1, A1=0, A2=0 
-extern PCF8574 PCF1;  //A0=0, A1=0, A2=0 
+extern PCF8574 PCF1;  //A0=0, A1=0, A2=0
+extern PZEM004Tv30 pmeter1;
+extern PZEM004Tv30 pmeter2;
+extern EthernetUDP udp;
+
+extern Brigthc_Addres_t net;
+extern ESP32Time rtc;
+extern Config_t config;
+extern uint8_t mac[];
+extern bool is_controlling;
+//CONTROL DE SECUENCIA DE AA
+extern Sequence_AA_t sec_AA;
+extern uint64_t timestamp_ant;
+extern AA_t V_AA[4];
+extern const char *filename;
+
+
+extern TaskHandle_t air_handle;
+extern TaskHandle_t ctrl_handle;
+extern TaskHandle_t bypass_handle;
+extern TaskHandle_t callback_handle;
+
+/*RTOS Task --------------------------------------------------------------------------*/
+void buzer_task(void *params);
+void webServer_Task_WiFi(void *params);
+void lcd_task(void *params);
+void Sec_Task(void * argument);
+void Controller_Task(void * argument);
+void Bypass_Task(void  * argument);
+void callback_command_task(void *params);
+void input_read_task(void *params);
+void webServer_Task(void *params);
 /*Function api prototype -------------------------------------------------------------*/
 void led_blink(uint16_t led_pin,uint8_t blink_num, uint64_t delayBlink);
 void ethernetReset(const uint8_t resetPin);
@@ -166,4 +203,16 @@ void temp_sensors_read(void);
 void ethernet_connect(uint8_t *mac, IPAddress _ip, IPAddress _dns, IPAddress _gateway, IPAddress _subnet);
 void PCF_Pin_Init(void);
 void digital_pin_config(void);
+bool SPIFFS_isExist(fs::FS &fs, const char * path);
+void SPIFFS_init(void);
+String SPIFFS_readFile(fs::FS &fs, const char * path);
+void SPIFFS_writeFile(fs::FS &fs, const char * path, const char * message);
+bool SPIFFS_loadConfiguration(const char *filename, Config_t *xconfig);
+bool SPIFFS_loadConfiguration(const char *filename, Config_t *xconfig);
+bool SPIFFS_saveConfiguration (const char *filename, Config_t *xconfig);
+void copy_data_config(Sequence_AA_t &xsec_AA, Config_t &xconfig);
+void initButtonState(InputState_t &button, ValidState_t v);
+uint8_t readButton(InputState_t &button, uint8_t physical_value);
+
+
 #endif

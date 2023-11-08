@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Configuración de Red</h2>
+        <form id="config-form" action="#" method="post">
+            <div class="form-group">
+                <label for="ip">Dirección IP del Dispositivo:</label>
+                <input type="text" id="ip" name="ip" placeholder="Ej. 192.168.1.100">
+            </div>
+
+            <div class="form-group">
+                <label for="gateway">Puerta de Enlace (Gateway):</label>
+                <input type="text" id="gateway" name="gateway" placeholder="Ej. 192.168.1.1">
+            </div>
+
+            <div class="form-group">
+                <label for="subnet">Máscara de Subred (Subnet):</label>
+                <input type="text" id="subnet" name="subnet" placeholder="Ej. 255.255.255.0">
+            </div>
+
+            <div class="form-group">
+                <label for="serverIp">Dirección IP del Servidor:</label>
+                <input type="text" id="serverIp" name="serverIp" placeholder="Ej. 192.168.1.10">
+            </div>
+
+            <button type="submit">Guardar Configuración</button>
+        </form>
+    </div>
+
+    <script>
+        const configForm = document.getElementById("config-form");
+        configForm.addEventListener('submit', event => {
+            event.preventDefault();
+
+            const formData = new FormData(configForm);
+            const data = Object.fromEntries(formData);
+
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Configuración establecida!");
+                console.log(data);
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Falló la configuración");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -69,6 +69,10 @@ typedef struct{
     int TIM_ENFRIO_SP;          //tiempo en el que debe enfriars
     bool BYPASS_LOGICO;
     bool MANUAL;
+    bool AA1_MANUAL;
+    bool AA2_MANUAL;
+    bool AA3_MANUAL;
+    bool AA4_MANUAL;
 }Sequence_AA_t;
 
 typedef struct{
@@ -122,4 +126,27 @@ typedef enum{
   CMD_RST_FAIL_COUNT,
   CMD_RST_Device
 }CMD_CALLBACK_t;
+
+typedef struct{
+    IPAddress ip;
+    IPAddress DNS;
+    IPAddress GATEWAY;
+    IPAddress SUBNET;
+    IPAddress IPSERVER;
+}Brigthc_Addres_t;
+
+typedef enum{
+    STATE_NONE = 0,
+    STATE_TO_LOW = 1,
+    STATE_TO_HIGH = 2
+}ValidState_t;
+
+
+typedef struct{
+    uint8_t previous_state;
+    uint32_t last_change_time;
+    uint8_t validState;
+}InputState_t;
+
+
 #endif
