@@ -56,13 +56,19 @@ PCF8574 PCF2(PCF2_ADDR);                           //A0=1, A1=0, A2=0
 PCF8574 PCF1(PCF1_ADDR);                           //A0=0, A1=0, A2=0 
 PZEM004Tv30 pmeter1(PZEM_SERIAL_PM1, PZEM_RX_PIN_PM1, PZEM_TX_PIN_PM1);
 PZEM004Tv30 pmeter2(PZEM_SERIAL_PM2, PZEM_RX_PIN_PM2, PZEM_TX_PIN_PM2);
+
+
+
+
 EthernetUDP udp;
+
+
 SNMP::Agent snmp;
 MIB mib;
 Brigthc_Addres_t net = {
-  .ip = IPAddress(10, 235, 125, 15),
-  .DNS = IPAddress(10,235,125,2),
-  .GATEWAY = IPAddress(10, 235, 125, 2),
+  .ip = IPAddress(10, 208, 85, 42),
+  .DNS = IPAddress(10, 208, 85, 41),
+  .GATEWAY = IPAddress(10, 208, 85, 41),
   .SUBNET = IPAddress(255,255, 255, 0),
   .IPSERVER = IPAddress(172, 19, 216, 30)
 };
@@ -197,6 +203,7 @@ void setup() {
       lcd.setCursor(0, 1);
       lcd.print("IP:192.168.4.1");
       SERIAL_PRINTLN("SERVER INIT: IP:192.168.4.1");
+      delay(3000);
       break;
     }
     if((millis() - config_time)>2000){
@@ -235,6 +242,11 @@ void setup() {
     digitalWrite(BUZER, LOW);
     delay(40);
   }
+  //LEER LAS DIRECCIONES DE LOS SENSORES DE CORRIENTE
+  Serial.print("Custom Address Power Meter 1:");
+  Serial.println(pmeter1.readAddress(), HEX);
+  Serial.print("Custom Address Power Meter 2:");
+  Serial.println(pmeter2.readAddress(), HEX);
   bool tempbool = false;
   //SNMP
   mib.setContact("emilce.meza@daecge.net");
@@ -265,14 +277,14 @@ void setup() {
   snmp.onMessage(onMessage);
 
   delay(6000);
-  SNMP::Message *message = mib.trap(net.ip, "", TRAP_SEVERITY_WARNING, TRAP_COLDSTART);
-  snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
-  delete message;
-  delay(2000);
-  message = mib.trap(net.ip, "", TRAP_SEVERITY_WARNING, TRAP_SYSTEMUP);
-  snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
-  delete message;
-  delay(4000);
+  // SNMP::Message *message = mib.trap(net.ip, "", TRAP_SEVERITY_WARNING, TRAP_COLDSTART);
+  // snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
+  // delete message;
+  // delay(2000);
+  // message = mib.trap(net.ip, "", TRAP_SEVERITY_WARNING, TRAP_SYSTEMUP);
+  // snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
+  // delete message;
+  // delay(4000);
 
   command_queue = xQueueCreate(20, sizeof(String));
   configASSERT( command_queue != NULL);
@@ -313,7 +325,7 @@ void setup() {
                                   "LCD",
                                   (4000),
                                   NULL,
-                                  6,
+                                  8,
                                   NULL,
                                   ARDUINO_RUNNING_CORE);
   initButtonState(sw, STATE_TO_LOW);
@@ -322,7 +334,7 @@ void setup() {
                                   "AA SEC TASK",
                                   (8000),
                                   NULL,
-                                  10,
+                                  8,
                                   &air_handle,
                                   ARDUINO_RUNNING_CORE);
   configASSERT(status == pdPASS);
@@ -330,7 +342,7 @@ void setup() {
                                   "CTRL",
                                   (4000),
                                   NULL,
-                                  12,
+                                  8,
                                   &ctrl_handle,
                                   ARDUINO_RUNNING_CORE);
   configASSERT(status == pdPASS);
@@ -339,7 +351,7 @@ void setup() {
                                   "BYPASS",
                                   (5000),
                                   NULL,
-                                  13,
+                                  8,
                                   &bypass_handle,
                                   ARDUINO_RUNNING_CORE);
   configASSERT(status == pdPASS);
@@ -348,7 +360,7 @@ void setup() {
                                   "CALLBACK",
                                   (8000),
                                   NULL,
-                                  9,
+                                  8,
                                   &callback_handle,
                                   ARDUINO_RUNNING_CORE);
   configASSERT(status == pdPASS);
@@ -380,27 +392,31 @@ void loop() {
     snmp.loop();
     xSemaphoreGive(ethernetMutex);
   }
-  // if(readButton(sw, digitalRead(BTN_CNFIG_1)) == STATE_TO_LOW){
-  //   SERIAL_PRINT("S_BYPASS_STS = ");
-  //   SERIAL_PRINTLN(dataIn.S_BYPASSS_STS);
-  //   SERIAL_PRINT("MANUAL: ");
-  //   xQueue_buzer.delay = 50;
-  //   xQueue_buzer.repeats  = 1;
-  //   xQueueSend(buzer_queue, (void *) & xQueue_buzer, 30);
-  //   //se verifica el estado del bypass
-  //   if((dataIn.S_BYPASSS_STS == false)){
-  //     //se envia el comando para entrar a modo bypass
-  //     SERIAL_PRINTLN("[SETUP]->ENTRANDO A MODO BYPASS");
-  //     xEventGroupSetBits(controlEvents, BRIGTHC_CTRL_BYPASS_EXT);
-  //     dataIn.S_BYPASSS_STS = 1;
-  //   }else if((dataIn.S_BYPASSS_STS == true)){
-  //     sec_AA.BYPASS_LOGICO = false;
-  //     SERIAL_PRINTLN("[SETUP]->SALIENDO A MODO BYPASS");
-  //     xEventGroupSetBits(controlEvents, BRIGTHC_CTRL_BYPASS_EXIT);
-  //     dataIn.S_BYPASSS_STS = 0;
-  //   }
-  // }
-  vTaskDelay(1);
+  if(readButton(sw, digitalRead(BTN_CNFIG_1)) == STATE_TO_LOW){
+    SERIAL_PRINT("S_BYPASS_STS = ");
+    SERIAL_PRINTLN(dataIn.S_BYPASSS_STS);
+    SERIAL_PRINT("MANUAL: ");
+    xQueue_buzer.delay = 50;
+    xQueue_buzer.repeats  = 1;
+    xQueueSend(buzer_queue, (void *) & xQueue_buzer, 30);
+    //se verifica el estado del bypass
+    if((dataIn.S_BYPASSS_STS == false)){
+      //se envia el comando para entrar a modo bypass
+      SERIAL_PRINTLN("[SETUP]->ENTRANDO A MODO BYPASS");
+      xEventGroupSetBits(controlEvents, BRIGTHC_CTRL_BYPASS_EXT);
+      delay(10);
+      dataIn.S_BYPASSS_STS = 1;
+    }else if((dataIn.S_BYPASSS_STS == true)){
+      sec_AA.BYPASS_LOGICO = false;
+      SERIAL_PRINTLN("[SETUP]->SALIENDO A MODO BYPASS");
+      xEventGroupSetBits(controlEvents, BRIGTHC_CTRL_BYPASS_EXIT);
+      dataIn.S_BYPASSS_STS = 0;
+      delay(10);
+    }
+    while(digitalRead(BTN_CNFIG_1) == 0){}
+    SERIAL_PRINTLN("[SETUP]->SW liberado\r\n");
+  }
+  vTaskDelay(3);
   
 }
 

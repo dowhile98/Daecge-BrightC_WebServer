@@ -60,6 +60,8 @@ void temp_sensors_read(void){
         xEventGroupSetBits(controlEvents, BRIGTHC_CTRL_BYPASS_TEMP);
       }
     }
+    sensorData.TMP1 -= 1.5;
+    sensorData.TMP2 -= 1.5;
     //SE VERIFICA SI SE ENTRO A BYPASS
     SERIAL_PRINT("-->(TEMP READ)DSB1: "); 
     SERIAL_PRINT(sensorData.TMP1);
@@ -85,7 +87,8 @@ void ethernet_connect(uint8_t *mac, IPAddress _ip, IPAddress _dns, IPAddress _ga
   SERIAL_PRINTLN("Iniciando conexion ETH...");
   //->
   //Ethernet.begin(mac, _ip, _dns, _gateway, _subnet);
-  Ethernet.begin(mac, _ip);
+  Ethernet.begin(mac, _ip, _dns, _gateway);
+  //Ethernet.begin(mac, _ip);
   delay(8000);
   lcd.clear();
   lcd.print("ADAPTADOR");

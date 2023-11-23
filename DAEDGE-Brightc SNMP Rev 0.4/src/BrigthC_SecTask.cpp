@@ -24,6 +24,7 @@ extern MIB mib;
 void Sec_Task(void * argument){
 	/*Local variables -----------------------------------------------------------------*/
 	uint8_t airsTurn[AA_NUM_MAX] = {0};
+	uint32_t ticksReInit;
 	uint32_t timeStamp = 0;
 	uint8_t dias = 0;
 	EventBits_t secFlags;
@@ -65,8 +66,10 @@ void Sec_Task(void * argument){
 	xEventGroupSetBits(secEvents, BRIGTHC_SEC_READY);
 	printf("[SEC]iniciando....\r\n");
     //se actualiza el contenido del MIB
+	ticksReInit = rtc.getEpoch();
     mib.setAAState(V_AA);
     for(;;){
+		
         if((rtc.getEpoch() - timeStamp) > TIME_STAMP_ONE_DAY){    //si transcurre un día
             timeStamp = rtc.getEpoch();
             dias += 1;
@@ -79,6 +82,7 @@ void Sec_Task(void * argument){
                 dias = 0;
                 xEventGroupSetBits(secEvents, BRIGTHC_SEC_DAY_CPLT);
             }
+			
             SERIAL_PRINT("[AA_SEC]->Timestamp: "); SERIAL_PRINTLN(rtc.getEpoch()); SERIAL_PRINT("[AA_SEC]->N° Dia: ");
             SERIAL_PRINTLN(dias);
             sprintf(xQueue_lcd.line1, "DIA DE SECUENCIA");
@@ -131,6 +135,13 @@ void Sec_Task(void * argument){
             xQueueSend(buzer_queue, (void *)&xQueue_buzer, 30);
             //se publica el mensaje
             mib.setAAState(V_AA);
+		}
+		if((rtc.getEpoch() - ticksReInit)>TIME_STAMP_ONE_DAY/2){
+			if(is_controlling != true){
+				ticksReInit = rtc.getEpoch();
+				PCF_Pin_Init();
+				brigthC_SetReady(V_AA);
+			}
 		}
 		xSemaphoreGive(shareDataMutex);
     }

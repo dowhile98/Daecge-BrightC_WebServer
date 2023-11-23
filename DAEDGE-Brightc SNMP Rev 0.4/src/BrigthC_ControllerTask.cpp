@@ -89,6 +89,7 @@ void Controller_Task(void * argument){
 				pdFALSE, pdFALSE, 800);
 		if(controlFlags & BRIGTHC_STATE_BYPASS ){
 			Serial.printf("[CTRL TASK] Dispositivo en modo bypass\r\n");
+			vTaskDelay(pdTICKS_TO_MS(10));
 			xEventGroupWaitBits(systemEvents,
 							BRIGTHC_STATE_RETURN_CTRL,
 							pdTRUE, pdTRUE, portMAX_DELAY);
@@ -108,7 +109,7 @@ void Controller_Task(void * argument){
 			//todo se espera la bandera de lectura de datos de temperatura
 
 			xSemaphoreTake(shareDataMutex, portMAX_DELAY);
-			if((sensorData.TMP1 >= sec_AA.SEC_TMP_MAX) || (sensorData.TMP2 >= sec_AA.SEC_TMP_MAX)){
+			if((sensorData.TMP1 > (sec_AA.SEC_TMP_MAX + 0.2)) || (sensorData.TMP2 > (sec_AA.SEC_TMP_MAX + 0.2))){
                 is_controlling = true;
 				//se verifica el contador de fallas
 				if(failCountVerify(V_AA, sec_AA.SEC_CANT_AA, 3) == false){
@@ -250,7 +251,7 @@ void Controller_Task(void * argument){
 			
 			break;
 		}
-		vTaskDelay(1);
+		vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
 /*Function definition --------------------------------------------------------------*/

@@ -47,19 +47,19 @@ void input_read_task(void *params){
     SNMP::Message *message;
     LCD_queue_t xQueue_lcd;
     //Todo
-    //temp_sensors_read();
-    //pzem_read_measurement();
+    temp_sensors_read();
+    pzem_read_measurement();
 
 
 
-    dataIn.in1 = !PCF1.digitalRead(P_AAA1_AS);
-    dataIn.in2 = !PCF1.digitalRead(P_AAA1_AABP);
-    dataIn.in3 = !PCF1.digitalRead(P_AAA2_AS);
-    dataIn.in4 = !PCF1.digitalRead(P_AAA2_AABP);
-    dataIn.in5 = !PCF1.digitalRead(P_AAA3_AS);
-    dataIn.in6 = !PCF1.digitalRead(P_AAA3_AABP);
-    dataIn.in7 = !PCF1.digitalRead(P_AAA4_AS);
-    dataIn.in8 = !PCF1.digitalRead(P_AAA4_AABP);
+    dataIn.in1 = PCF1.digitalRead(P_AAA1_AS);
+    dataIn.in2 = PCF1.digitalRead(P_AAA1_AABP);
+    dataIn.in3 = PCF1.digitalRead(P_AAA2_AS);
+    dataIn.in4 = PCF1.digitalRead(P_AAA2_AABP);
+    dataIn.in5 = PCF1.digitalRead(P_AAA3_AS);
+    dataIn.in6 = PCF1.digitalRead(P_AAA3_AABP);
+    dataIn.in7 = PCF1.digitalRead(P_AAA4_AS);
+    dataIn.in8 = PCF1.digitalRead(P_AAA4_AABP);
     dataIn.A_Incendio = (digitalRead(P_A_Incendio) == 1) ? 0 : 1;
     mib.setMeasurement(sensorData);
     uint8_t stateRead = 0;
@@ -78,36 +78,36 @@ void input_read_task(void *params){
         //lectura de los sensores de temperatura
         if((millis() - last_read_temp)> TEMP_SENSORS_READ * 1000){
             last_read_temp = millis();
-            switch (stateRead)
-            {
-            case 1:
-                /* code */
-                sensorData.TMP1 = 21.5;
-                sensorData.TMP2 = 20.4;
-                break;
-            case 2:
-                sensorData.TMP1 = 26.1;
-                sensorData.TMP2 = 26.8;
-                break;
-            case 3:
-                sensorData.TMP1 = 28.6;
-                sensorData.TMP2 = 27.8;
-                break;
-            case 4:
-                sensorData.TMP1 = 30.1;
-                sensorData.TMP2 = 32.4;
-                stateRead = 0;
-                break;
-            default:
+            // switch (stateRead)
+            // {
+            // case 1:
+            //     /* code */
+            //     sensorData.TMP1 = 21.5;
+            //     sensorData.TMP2 = 20.4;
+            //     break;
+            // case 2:
+            //     sensorData.TMP1 = 26.1;
+            //     sensorData.TMP2 = 26.8;
+            //     break;
+            // case 3:
+            //     sensorData.TMP1 = 28.6;
+            //     sensorData.TMP2 = 27.8;
+            //     break;
+            // case 4:
+            //     sensorData.TMP1 = 30.1;
+            //     sensorData.TMP2 = 32.4;
+            //     stateRead = 0;
+            //     break;
+            // default:
 
-                break;
-            }
-            SERIAL_PRINT("-->(TEMP READ)DSB1: "); 
-            SERIAL_PRINT(sensorData.TMP1);
-            SERIAL_PRINT("  DSB2: "); 
-            SERIAL_PRINTLN(sensorData.TMP2);
-            stateRead += 1;
-            //temp_sensors_read();
+            //     break;
+            // }
+            // SERIAL_PRINT("-->(TEMP READ)DSB1: "); 
+            // SERIAL_PRINT(sensorData.TMP1);
+            // SERIAL_PRINT("  DSB2: "); 
+            // SERIAL_PRINTLN(sensorData.TMP2);
+            //stateRead += 1;
+            temp_sensors_read();
             mib.setMeasurement(sensorData);
             last_read_temp = millis();
             //todo
@@ -116,17 +116,17 @@ void input_read_task(void *params){
         //lectura de entradas 
         if((millis() - last_input_read)>200){
             last_input_read = millis();
-            xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+            //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
             brightC_trapSend();
-            xSemaphoreGive(ethernetMutex);
+            //xSemaphoreGive(ethernetMutex);
         }
         if((millis() - last_pzem_read) >= 60000){
             last_pzem_read = millis();
-            //pzem_read_measurement();
+            pzem_read_measurement();
             mib.setMeasurement(sensorData);
             
         }
-        vTaskDelay(pdMS_TO_TICKS(50));
+        vTaskDelay(pdMS_TO_TICKS(100));
     }
 }
 /*Function definition -----------------------------------------------------------------*/
@@ -136,14 +136,14 @@ void brightC_trapSend(void){
     String msg = "";
     uint8_t severity = 0;
     /*input read*/
-    dataIn.in1 = !PCF1.digitalRead(P_AAA1_AS);
-    dataIn.in2 = !PCF1.digitalRead(P_AAA1_AABP);
-    dataIn.in3 = !PCF1.digitalRead(P_AAA2_AS);
-    dataIn.in4 = !PCF1.digitalRead(P_AAA2_AABP);
-    dataIn.in5 = !PCF1.digitalRead(P_AAA3_AS);
-    dataIn.in6 = !PCF1.digitalRead(P_AAA3_AABP);
-    dataIn.in7 = !PCF1.digitalRead(P_AAA4_AS);
-    dataIn.in8 = !PCF1.digitalRead(P_AAA4_AABP);
+    dataIn.in1 = PCF1.digitalRead(P_AAA1_AS);
+    dataIn.in2 = PCF1.digitalRead(P_AAA1_AABP);
+    dataIn.in3 = PCF1.digitalRead(P_AAA2_AS);
+    dataIn.in4 = PCF1.digitalRead(P_AAA2_AABP);
+    dataIn.in5 = PCF1.digitalRead(P_AAA3_AS);
+    dataIn.in6 = PCF1.digitalRead(P_AAA3_AABP);
+    dataIn.in7 = PCF1.digitalRead(P_AAA4_AS);
+    dataIn.in8 = PCF1.digitalRead(P_AAA4_AABP);
     dataIn.A_Incendio = (digitalRead(P_A_Incendio) == 1) ? 0 : 1;
     mib.setInputVal(dataIn);
     /*Se verifican los traps*/
@@ -152,13 +152,13 @@ void brightC_trapSend(void){
         msg = (dataIn.S_BYPASSS_STS == true) ? "ACTIVACION ALARMA BYPASS" : "CANCELACION ALARMA BYPASS";
         severity = (dataIn.S_BYPASSS_STS == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         //message = mib.trap(ip, msg.c_str(), severity, TRAP_BYPASS);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_BYPASS);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //high temperature
@@ -166,13 +166,13 @@ void brightC_trapSend(void){
         msg = (dataIn.TMP_High == true) ? "ACTIVACION ALARMA TEMPERATURA ALTA" : "CANCELACION ALARMA TEMPERATURA ALTA";
         severity = (dataIn.TMP_High == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         //message = mib.trap(ip, msg.c_str(), severity, TRAP_TEMPHIGH);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_TEMPHIGH);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //AA1
@@ -180,24 +180,24 @@ void brightC_trapSend(void){
         msg = (dataIn.in1 == true) ? "ACTIVASION ALARMA BAJO VOLTAJE AA2" : "CANCELACION ALARMA BAJO VOLTAJE AA2";
         severity = (dataIn.in1 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AS1);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     if(inputRead(IN2, dataIn.in2)){
         msg = (dataIn.in2 == true) ? "ACTIVASION ALARMA BAJO VOLTAJE AA1" : "CANCELACION ALARMA BAJO VOLTAJE AA1";
         severity = (dataIn.in2== true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AAPB1);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //AA2
@@ -205,49 +205,49 @@ void brightC_trapSend(void){
         msg = (dataIn.in3 == true) ? "ACTIVASION ALARMA DE SUMINISTRO AA2" : "CANCELACION ALARMA DE SUMINISTRO AA2";
         severity = (dataIn.in3 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AS2);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     if(inputRead(IN4, dataIn.in4)){
         msg = (dataIn.in4 == true) ? "ACTIVACION ALARMA DE BAJA PRESION AA2" : "CANCELACION ALARMA DE BAJA PRESION AA2";
         severity = (dataIn.in4 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AAPB2);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //AA3
     if(inputRead(IN5, dataIn.in5)){
-        msg = (dataIn.in5 == true) ? "ACTIVACION ALARMA DE ALTA PRESION AA2" : "CANCELACION ALARMA DE ALTA PRESION AA2";
+        msg = (dataIn.in5 == true) ? "ACTIVACION ALARMA DE PRESION AA2" : "CANCELACION ALARMA DE PRESION AA2";
         severity = (dataIn.in5 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AS3);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     if(inputRead(IN6, dataIn.in6)){
         msg = (dataIn.in6 == true) ? "ACTIVASION ALARMA DE SUMINISTRO PRESION AA1" : "CANCELACION ALARMA DE SUMINISTRO PRESION AA1";
         severity = (dataIn.in6 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AAPB3);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //AA4
@@ -255,24 +255,24 @@ void brightC_trapSend(void){
         msg = (dataIn.in7 == true) ? "ACTIVASION ALARMA DE BAJA PRESION AA1" : "CANCELACION ALARMA DE BAJA PRESION AA1";
         severity = (dataIn.in7 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AS4);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     if(inputRead(IN8, dataIn.in8)){
-        msg = (dataIn.in8 == true) ? "ACTIVASION ALARMA DE ALTA PRESION AA1" : "CANCELACION ALARMA DE ALTA PRESION AA1";
+        msg = (dataIn.in8 == true) ? "ACTIVASION ALARMA DE PRESION AA1" : "CANCELACION ALARMA DE PRESION AA1";
         severity = (dataIn.in8 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_AAPB4);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //A INCENDIO
@@ -280,12 +280,12 @@ void brightC_trapSend(void){
         msg = (dataIn.A_Incendio == true) ? "ACTIVASION ALARMA DE INCENDIO" : "CANCELACION ALARMA DE INCENDIO";
         severity = (dataIn.A_Incendio == true) ?  TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
-        xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+        //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
         message = mib.trap(net.ip, msg.c_str(), severity, TRAP_INCENDIO);
         snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
         delete message;
         //release mutex
-        xSemaphoreGive(ethernetMutex);
+        //xSemaphoreGive(ethernetMutex);
         return;
     }
     //manual
@@ -294,12 +294,12 @@ void brightC_trapSend(void){
     //     msg = (manual == true) ? "BrigthC modo manual" : "Cancelacion modo manual";
     //     severity = (manual == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, msg.c_str(), severity, TRAP_MANUAL);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
     //AA1
@@ -308,12 +308,12 @@ void brightC_trapSend(void){
     //     msg = (aa1Last == true) ? "Aire acondicionado 1 encendido" : "Aire acondicionado 1 apagado";
     //     severity = (aa1Last == true) ? TRAP_SEVERITY_MINOR : TRAP_SEVERITY_WARNING;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, msg.c_str(), severity, TRAP_AA1);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
     // //AA2
@@ -322,12 +322,12 @@ void brightC_trapSend(void){
     //     msg = (aa2Last == true) ? "Aire acondicionado 2 encendido" : "Aire acondicionado 2 apagado";
     //     severity = (aa2Last == true) ? TRAP_SEVERITY_MINOR : TRAP_SEVERITY_WARNING;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, msg.c_str(), severity, TRAP_AA2);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
     //AA3
@@ -336,12 +336,12 @@ void brightC_trapSend(void){
     //     msg = (aa3Last == true) ? "Aire acondicionado 3 encendido" : "Aire acondicionado 3 apagado";
     //     severity = (aa3Last == true) ? TRAP_SEVERITY_MINOR : TRAP_SEVERITY_WARNING;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, msg.c_str(), severity, TRAP_AA3);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
     // //AA4
@@ -350,24 +350,24 @@ void brightC_trapSend(void){
     //     msg = (aa4Last == true) ? "Aire acondicionado 4 encendido" : "Aire acondicionado 4 apagado";
     //     severity = (aa4Last == true) ? TRAP_SEVERITY_MINOR : TRAP_SEVERITY_WARNING;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, msg.c_str(), severity, TRAP_AA4);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
     // //Change turn
     // if(sec_AA.changeTurn == true){
     //     sec_AA.changeTurn = false;
     //     //take mutex
-    //     //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
+    //     ////xSemaphoreTake(ethernetMutex, portMAX_DELAY);
     //     message = mib.trap(ip, "Cambio de turno de AA", TRAP_SEVERITY_CRITICAL, TRAP_TURNCHANGE);
     //     snmp.send(message, net.IPSERVER, SNMP::PORT::TRAP);
     //     delete message;
     //     //release mutex
-    //     //xSemaphoreGive(ethernetMutex);
+    //     ////xSemaphoreGive(ethernetMutex);
     //     return;
     // }
 }

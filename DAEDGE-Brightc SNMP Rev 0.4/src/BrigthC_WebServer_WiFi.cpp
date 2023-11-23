@@ -49,7 +49,7 @@ void webServer_Task_WiFi(void *params){
   
   
   Serial.println("[WIFI]->Init AP (access Point)");
-  WiFi.softAP("BrightC_Manager", NULL);
+  WiFi.softAP("BrightC_Manager", "987654321");
 
   IPAddress IP = WiFi.softAPIP();
   Serial.print("AP IP addres: ");
@@ -221,6 +221,7 @@ void handleInputConfig(AsyncWebServerRequest *request, JsonVariant &json){
     mib.setCant_AA((const char *)val);
     cmd.command =  CMD_CANT_AA;
     cmd.pData = (const char*) &config.SEC_CANT_AA;
+    xEventGroupSetBits(secEvents, BRIGTHC_CHANGE_NUMBER_AA);
     xQueueSend(command_queue, (void *)&cmd, 100);
   }
   strcpy(val, doc["dias_secuencia"]);
@@ -257,23 +258,58 @@ void handleInputConfig(AsyncWebServerRequest *request, JsonVariant &json){
 }
 
 void handleAPIControlManual(AsyncWebServerRequest *request, JsonVariant &json){
-  StaticJsonDocument<200> data;
+  StaticJsonDocument<200> doc;
+  uint8_t cmdVal = 0;
   if (json.is<JsonArray>())
   {
-    data = json.as<JsonArray>();
+    doc = json.as<JsonArray>();
   }
   else if (json.is<JsonObject>())
   {
-    data = json.as<JsonObject>();
+    doc = json.as<JsonObject>();
   }
+
+
+  cmdVal = doc["valor"];
+  if(doc["accion"] == "modoBypass"){
+    cmd.command = CMD_BYPASS_LOGICO;
+  }else if(doc["accion"] == "modoManual"){
+    cmd.command = CMD_MANUAL;
+  }else if(doc["accion"] == "aa1"){
+    cmd.command = CMD_MANUAL_AA1;
+  }else if(doc["accion"] == "aa2"){
+    cmd.command = CMD_MANUAL_AA2;;
+  }else if(doc["accion"] == "aa3"){
+    cmd.command = CMD_MANUAL_AA3;;
+  }else if(doc["accion"] == "aa4"){
+    cmd.command = CMD_MANUAL_AA4;;
+  }else if(doc["accion"] == "reiniciarFallas"){
+    cmd.command = CMD_RST_FAIL_COUNT;
+  }else if(doc["accion"] == "reiniciarEnergia"){
+    cmd.command = CMD_RST_ENERGY;
+  }
+  //send cmd to callback task
+  cmd.pData = (const char *)&cmdVal;
+  xQueueSend(command_queue, (void *)&cmd, 100);
+  delay(100);
+  DynamicJsonDocument docTx(128);
+  docTx["modoBypass"] = (dataIn.S_BYPASSS_STS == true) ? "1" : "0";
+  docTx["modoManual"] = (sec_AA.MANUAL == true) ? "1" : "0";
+  docTx["aa1"] = (V_AA[0].workig == true) ? "1" : "0";
+  docTx["aa2"] = (V_AA[1].workig == true) ? "1" : "0";
+  docTx["aa3"] = (V_AA[2].workig == true) ? "1" : "0";
+  docTx["aa4"] = (V_AA[3].workig == true) ? "1" : "0";
+
   String response;
-  serializeJson(data, response);
+  serializeJson(docTx, response);
   request->send(200, "application/json", response);
   Serial.println(response);
+  return;
 }
 
 void handleAPIipconfig(AsyncWebServerRequest *request, JsonVariant &json){
   StaticJsonDocument<200> data;
+  char val[30];
   if (json.is<JsonArray>())
   {
     data = json.as<JsonArray>();
@@ -282,6 +318,16 @@ void handleAPIipconfig(AsyncWebServerRequest *request, JsonVariant &json){
   {
     data = json.as<JsonObject>();
   }
+
+  strcpy(config.name, data["name"]);
+  strcpy(config.ip, data["ip"]);
+  strcpy(config.gateway, data["gateway"]);
+  strcpy(config.subnet, data["subnet"]);
+  strcpy(config.ipserver, data["serverIp"]);
+
+  //todo save data
+  SPIFFS_saveConfiguration(filename, &config);
+  copy_data_config(sec_AA, config);
   String response;
   serializeJson(data, response);
   request->send(200, "application/json", response);
