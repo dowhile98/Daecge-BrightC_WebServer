@@ -1,0 +1,10 @@
+17:59:03 **** Incremental Build of configuration Debug for project BrightC_Rev0.1 ****
+make -j8 all 
+arm-none-eabi-size   BrightC_Rev0.1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  35868	    216	   2080	  38164	   9514	BrightC_Rev0.1.elf
+Finished building: default.size.stdout
+ 
+
+17:59:05 Build Finished. 0 errors, 0 warnings. (took 1s.454ms)
+

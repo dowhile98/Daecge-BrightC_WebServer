@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="lan8742_io_deinit"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="lan8742_io_deinit"/>
+			<item value="usbx_app_thread_entry"/>
+			<item value="SERVER_POOL_SIZE"/>
+			<item value="request_type"/>
+			<item value="nx_web_http_server_mime_maps_additional"/>
+			<item value="mime"/>
+			<item value="length"/>
+			<item value="fx_file_open"/>
+			<item value="fx_media_open"/>
+			<item value="fx_open"/>
+			<item value="temp_string"/>
+			<item value="nx_http_server_type_retrieve"/>
+			<item value="string_length"/>
+			<item value="webserver_request_notify_callback"/>
+			<item value="nx_app_thread_entry"/>
+		</list>
+		<list key="replacehistory">
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="413"/>
+		<item key="DIALOG_Y_ORIGIN" value="541"/>
+		<item key="DIALOG_WIDTH" value="322"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

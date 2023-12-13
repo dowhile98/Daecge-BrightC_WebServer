@@ -1,0 +1,139 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    app_netxduo.h
+  * @author  MCD Application Team
+  * @brief   NetXDuo applicative header file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __APP_NETXDUO_H__
+#define __APP_NETXDUO_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "nx_api.h"
+
+/* Private includes ----------------------------------------------------------*/
+#include "nx_stm32_eth_driver.h"
+
+/* USER CODE BEGIN Includes */
+#include "brightc.h"
+/* USER CODE END Includes */
+
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
+#define PRINT_IP_ADDRESS(addr)             do { \
+                                                printf("STM32 %s: %lu.%lu.%lu.%lu \r\n", #addr, \
+                                                (addr >> 24) & 0xff, \
+                                                (addr >> 16) & 0xff, \
+                                                (addr >> 8) & 0xff, \
+                                                addr& 0xff);\
+                                           }while(0)
+
+#define PRINT_DATA(addr, port, data)       do { \
+                                                printf("[%lu.%lu.%lu.%lu:%u] -> '%s' \r\n", \
+                                                (addr >> 24) & 0xff, \
+                                                (addr >> 16) & 0xff, \
+                                                (addr >> 8) & 0xff,  \
+                                                (addr & 0xff), port, data); \
+                                           } while(0)
+/* USER CODE END ET */
+
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+#ifndef DEFAULT_PAYLOAD_SIZE
+#define DEFAULT_PAYLOAD_SIZE      1536
+#endif
+
+#ifndef DEFAULT_ARP_CACHE_SIZE
+#define DEFAULT_ARP_CACHE_SIZE    1024
+#endif
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
+UINT MX_NetXDuo_Init(VOID *memory_ptr);
+
+/* USER CODE BEGIN EFP */
+
+/* USER CODE END EFP */
+
+/* Private defines -----------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define WINDOW_SIZE                           512
+#define LINK_PRIORITY                         11
+
+/* Wait option for getting @IP */
+#define WAIT_OPTION                           1000
+/* Entry input for Main thread */
+#define ENTRY_INPUT                           0
+/* Main Thread priority */
+#define THREAD_PRIO                           4
+/* Main Thread preemption threshold */
+#define THREAD_PREEMPT_THRESHOLD              4
+/* Web application size */
+#define WEB_APP_SIZE                          2048
+/* Memory size */
+#define MEMORY_SIZE                           2048
+/* HTTP connection port */
+#define CONNECTION_PORT                       80
+/* Server packet size */
+#define SERVER_PACKET_SIZE                    (NX_WEB_HTTP_SERVER_MIN_PACKET_SIZE * 2)
+/* Server stack */
+#define SERVER_STACK                          4096
+/* Server pool size */
+#define SERVER_POOL_SIZE                      (SERVER_PACKET_SIZE * 4)
+/* SD Driver information pointer */
+#define SD_DRIVER_INFO_POINTER                0
+
+#define NULL_IP_ADDRESS                       IP_ADDRESS(0,0,0,0)
+/* USER CODE END PD */
+
+/* USER CODE BEGIN 1 */
+#define SD_DRIVER_INFO_POINTER                0
+
+#define NULL_IP_ADDRESS                       IP_ADDRESS(0,0,0,0)
+/* USER CODE END PD */
+
+#define NX_APP_DEFAULT_TIMEOUT               (10 * NX_IP_PERIODIC_RATE)
+
+#define NX_APP_PACKET_POOL_SIZE              ((DEFAULT_PAYLOAD_SIZE + sizeof(NX_PACKET)) * 10)
+
+#define NX_APP_THREAD_STACK_SIZE             1024
+
+#define Nx_IP_INSTANCE_THREAD_SIZE           2*1024
+
+#define NX_APP_THREAD_PRIORITY               10
+
+#ifndef NX_APP_INSTANCE_PRIORITY
+#define NX_APP_INSTANCE_PRIORITY             NX_APP_THREAD_PRIORITY
+#endif
+
+#define NX_APP_DEFAULT_IP_ADDRESS                   IP_ADDRESS(192,168, 1, 35)
+
+#define NX_APP_DEFAULT_NET_MASK                     IP_ADDRESS(255, 255, 255, 0)
+/* USER CODE END 1 */
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* __APP_NETXDUO_H__ */

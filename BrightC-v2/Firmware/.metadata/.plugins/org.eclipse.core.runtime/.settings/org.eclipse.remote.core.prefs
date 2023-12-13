@@ -1,0 +1,6 @@
+connections/org.eclipse.remote.serial.core.connectionType/BrightC/serial.baudRate=11
+connections/org.eclipse.remote.serial.core.connectionType/BrightC/serial.byteSize=3
+connections/org.eclipse.remote.serial.core.connectionType/BrightC/serial.parity=0
+connections/org.eclipse.remote.serial.core.connectionType/BrightC/serial.portName=COM12
+connections/org.eclipse.remote.serial.core.connectionType/BrightC/serial.stopBits=0
+eclipse.preferences.version=1

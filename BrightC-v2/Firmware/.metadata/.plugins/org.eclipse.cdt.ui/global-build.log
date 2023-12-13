@@ -1,0 +1,33 @@
+21:11:53 **** Incremental Build of configuration Debug for project USB_FileX ****
+make -j8 all 
+arm-none-eabi-gcc "../BrightC_App/Src/brightc_server.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DTX_INCLUDE_USER_DEFINE_FILE -DFX_INCLUDE_USER_DEFINE_FILE -DUX_INCLUDE_USER_DEFINE_FILE -DNX_INCLUDE_USER_DEFINE_FILE -c -I../Core/Inc -I"D:/TRABAJO/DAEDGE/BrightC-v2/Firmware/USB_FileX/BrightC_App/Inc" -I"D:/TRABAJO/DAEDGE/BrightC-v2/Firmware/USB_FileX/Components/stm32_log" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../AZURE_RTOS/App -I../FileX/App -I../USBX/App -I../USBX/Target -I../Middlewares/ST/filex/common/inc/ -I../Middlewares/ST/filex/ports/generic/inc/ -I../Middlewares/ST/usbx/common/usbx_host_classes/inc/ -I../Middlewares/ST/usbx/common/core/inc/ -I../Middlewares/ST/usbx/ports/generic/inc/ -I../Middlewares/ST/usbx/common/usbx_stm32_host_controllers/ -I../Middlewares/ST/threadx/common/inc/ -I../Middlewares/ST/threadx/ports/cortex_m4/gnu/inc/ -I../NetXDuo/App -I../Middlewares/ST/netxduo/common/inc/ -I../Middlewares/ST/netxduo/ports/cortex_m4/gnu/inc/ -I../Middlewares/ST/netxduo/addons/web/ -I../NetXDuo/Target -I../Drivers/BSP/Components/lan8742/ -I../Middlewares/ST/netxduo/common/drivers/ethernet/ -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"BrightC_App/Src/brightc_server.d" -MT"BrightC_App/Src/brightc_server.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "BrightC_App/Src/brightc_server.o"
+arm-none-eabi-gcc "../AZURE_RTOS/App/app_azure_rtos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -DTX_INCLUDE_USER_DEFINE_FILE -DFX_INCLUDE_USER_DEFINE_FILE -DUX_INCLUDE_USER_DEFINE_FILE -DNX_INCLUDE_USER_DEFINE_FILE -c -I../Core/Inc -I"D:/TRABAJO/DAEDGE/BrightC-v2/Firmware/USB_FileX/BrightC_App/Inc" -I"D:/TRABAJO/DAEDGE/BrightC-v2/Firmware/USB_FileX/Components/stm32_log" -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../AZURE_RTOS/App -I../FileX/App -I../USBX/App -I../USBX/Target -I../Middlewares/ST/filex/common/inc/ -I../Middlewares/ST/filex/ports/generic/inc/ -I../Middlewares/ST/usbx/common/usbx_host_classes/inc/ -I../Middlewares/ST/usbx/common/core/inc/ -I../Middlewares/ST/usbx/ports/generic/inc/ -I../Middlewares/ST/usbx/common/usbx_stm32_host_controllers/ -I../Middlewares/ST/threadx/common/inc/ -I../Middlewares/ST/threadx/ports/cortex_m4/gnu/inc/ -I../NetXDuo/App -I../Middlewares/ST/netxduo/common/inc/ -I../Middlewares/ST/netxduo/ports/cortex_m4/gnu/inc/ -I../Middlewares/ST/netxduo/addons/web/ -I../NetXDuo/Target -I../Drivers/BSP/Components/lan8742/ -I../Middlewares/ST/netxduo/common/drivers/ethernet/ -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"AZURE_RTOS/App/app_azure_rtos.d" -MT"AZURE_RTOS/App/app_azure_rtos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "AZURE_RTOS/App/app_azure_rtos.o"
+../BrightC_App/Src/brightc_server.c: In function 'webserver_request_notify_callback':
+../BrightC_App/Src/brightc_server.c:132:5: warning: 'resumptions' may be used uninitialized [-Wmaybe-uninitialized]
+  132 |     sprintf (data, "%lu,%lu,%lu,%lu", resumptions, suspensions, idle_returns, non_idle_returns);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BrightC_App/Src/brightc_server.c:132:5: warning: 'suspensions' may be used uninitialized [-Wmaybe-uninitialized]
+../BrightC_App/Src/brightc_server.c:132:5: warning: 'idle_returns' may be used uninitialized [-Wmaybe-uninitialized]
+../BrightC_App/Src/brightc_server.c:132:5: warning: 'non_idle_returns' may be used uninitialized [-Wmaybe-uninitialized]
+../BrightC_App/Src/brightc_server.c:149:5: warning: 'led_thread_name' may be used uninitialized [-Wmaybe-uninitialized]
+  149 |     sprintf (data, "%s,%lu ,%s,%lu,%s,%lu", main_thread_name, main_thread_count, server_thread_name, server_thread_count,led_thread_name, led_thread_count);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../BrightC_App/Src/brightc_server.c:149:5: warning: 'led_thread_count' may be used uninitialized [-Wmaybe-uninitialized]
+arm-none-eabi-gcc -o "USB_FileX.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\TRABAJO\DAEDGE\BrightC-v2\Firmware\USB_FileX\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="USB_FileX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: USB_FileX.elf
+ 
+arm-none-eabi-size   USB_FileX.elf 
+arm-none-eabi-objdump -h -S  USB_FileX.elf  > "USB_FileX.list"
+   text	   data	    bss	    dec	    hex	filename
+ 178052	  24068	  44872	 246992	  3c4d0	USB_FileX.elf
+Finished building: default.size.stdout
+ 
+Finished building: USB_FileX.list
+ 
+21:13:12 **** Incremental Build of configuration Debug for project USB_FileX ****
+make -j8 all 
+arm-none-eabi-size   USB_FileX.elf 
+   text	   data	    bss	    dec	    hex	filename
+ 178052	  24068	  44872	 246992	  3c4d0	USB_FileX.elf
+Finished building: default.size.stdout
+ 

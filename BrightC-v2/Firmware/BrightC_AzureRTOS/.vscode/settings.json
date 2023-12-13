@@ -1,0 +1,7 @@
+{
+    "stm32-for-vscode.openOCDPath": false,
+    "files.associations": {
+        "brightc.h": "c",
+        "main.h": "c"
+    }
+}

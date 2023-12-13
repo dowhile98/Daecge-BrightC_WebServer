@@ -1,0 +1,162 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    app_usbx_host.c
+  * @author  MCD Application Team
+  * @brief   USBX host applicative file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+/* Includes ------------------------------------------------------------------*/
+#include "app_usbx_host.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+#define APP_QUEUE_SIZE                               1
+#define USBX_APP_STACK_SIZE                          1024
+#define USBX_MEMORY_SIZE                             (15 * 1024)
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN PV */
+TX_THREAD                                 ux_app_thread;
+TX_THREAD                                 msc_app_thread;
+TX_QUEUE                                  ux_app_MsgQueue;
+TX_QUEUE                                  ux_app_MsgQueue_msc;
+UX_HOST_CLASS_STORAGE                     *storage;
+UX_HOST_CLASS_STORAGE_MEDIA               *storage_media;
+FX_MEDIA                                  *media;
+
+__ALIGN_BEGIN ux_app_devInfotypeDef        ux_dev_info  __ALIGN_END;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN PFP */
+extern void msc_process_thread_entry(ULONG arg);
+extern void Error_Handler(void);
+extern void MX_USB_OTG_FS_HCD_Init(void);
+extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
+/* USER CODE END PFP */
+/**
+  * @brief  Application USBX Host Initialization.
+  * @param memory_ptr: memory pointer
+  * @retval int
+  */
+UINT MX_USBX_Host_Init(VOID *memory_ptr)
+{
+  UINT ret = UX_SUCCESS;
+  TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*)memory_ptr;
+
+  /* USER CODE BEGIN MX_USBX_Host_MEM_POOL */
+  CHAR *pointer;
+
+  /* Allocate the stack for thread 0.  */
+  if (tx_byte_allocate(byte_pool, (VOID **) &pointer,
+                       USBX_MEMORY_SIZE, TX_NO_WAIT) != TX_SUCCESS)
+  {
+    return TX_POOL_ERROR;
+  }
+
+  /* Initialize USBX memory. */
+  if (ux_system_initialize(pointer, USBX_MEMORY_SIZE, UX_NULL, 0) != UX_SUCCESS)
+  {
+    return UX_ERROR;
+  }
+  /* register a callback error function */
+
+  _ux_utility_error_callback_register(&ux_host_error_callback);
+
+  /* Allocate the stack for the main App thread. */
+  if (tx_byte_allocate(byte_pool, (VOID **) &pointer,
+                       USBX_APP_STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
+  {
+    return TX_POOL_ERROR;
+  }
+
+  /* Create the main App thread.  */
+  if (tx_thread_create(&ux_app_thread, "usbx_app_thread", usbx_app_thread_entry, 0,
+                       pointer, USBX_APP_STACK_SIZE, 25, 25, 0,
+                       TX_AUTO_START) != TX_SUCCESS)
+  {
+    return TX_THREAD_ERROR;
+  }
+
+  /* Allocate the stack for the msc_app_thread.  */
+  if (tx_byte_allocate(byte_pool, (VOID **) &pointer,
+                      (USBX_APP_STACK_SIZE * 2), TX_NO_WAIT) != TX_SUCCESS)
+  {
+    return TX_POOL_ERROR;
+  }
+
+  /* Create the storage applicative process thread.  */
+  if (tx_thread_create(&msc_app_thread, "msc_app_thread", msc_process_thread_entry, 0,
+                       pointer, (USBX_APP_STACK_SIZE * 2), 30, 30, 0,
+                       TX_AUTO_START) != TX_SUCCESS)
+  {
+    return TX_THREAD_ERROR;
+  }
+  /* Allocate Memory for the ux_app_MsgQueue  */
+  if (tx_byte_allocate(byte_pool, (VOID **) &pointer,
+                       APP_QUEUE_SIZE * sizeof(ULONG), TX_NO_WAIT) != TX_SUCCESS)
+  {
+    return TX_POOL_ERROR;
+  }
+
+  /* Create the MsgQueue   */
+  if (tx_queue_create(&ux_app_MsgQueue, "Message Queue app", TX_1_ULONG,
+                      pointer, APP_QUEUE_SIZE * sizeof(ULONG)) != TX_SUCCESS)
+  {
+    return TX_QUEUE_ERROR;
+  }
+
+  /* Allocate Memory for the msc_Queue  */
+  if (tx_byte_allocate(byte_pool, (VOID **) &pointer,
+                       sizeof(FX_MEDIA*), TX_NO_WAIT) != TX_SUCCESS)
+  {
+    return TX_POOL_ERROR;
+  }
+
+  /* Create the MsgQueue for msc_app_thread   */
+  if (tx_queue_create(&ux_app_MsgQueue_msc, "Message Queue msc", TX_1_ULONG,
+                      pointer, sizeof(FX_MEDIA*)) != TX_SUCCESS)
+  {
+    return TX_QUEUE_ERROR;
+  }
+  /* USER CODE END MX_USBX_Host_MEM_POOL */
+
+  /* USER CODE BEGIN MX_USBX_Host_Init */
+
+  /* USER CODE END MX_USBX_Host_Init */
+
+  return ret;
+}
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
