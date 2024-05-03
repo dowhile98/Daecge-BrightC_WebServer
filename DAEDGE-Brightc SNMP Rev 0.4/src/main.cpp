@@ -66,9 +66,12 @@ EthernetUDP udp;
 SNMP::Agent snmp;
 MIB mib;
 Brigthc_Addres_t net = {
-  .ip = IPAddress(10, 208, 85, 42),
-  .DNS = IPAddress(10, 208, 85, 41),
-  .GATEWAY = IPAddress(10, 208, 85, 41),
+  // .ip = IPAddress(10, 208, 85, 42),
+  .ip = IPAddress(10, 235, 125, 15),
+  // .DNS = IPAddress(10, 208, 85, 41),
+  .DNS = IPAddress(10,235,125,2),
+  //.GATEWAY = IPAddress(10, 208, 85, 41),
+  .GATEWAY = IPAddress(10, 235, 125, 2),
   .SUBNET = IPAddress(255,255, 255, 0),
   .IPSERVER = IPAddress(172, 19, 216, 30)
 };
@@ -104,15 +107,7 @@ void setup() {
   digital_pin_config();
 
   /*Bypass mode by default ----------------------------------------------------------*/
-  PCF2.digitalWrite(P_AA1, LOW);
-  PCF2.digitalWrite(P_AA2, LOW);
-  PCF2.digitalWrite(P_AA3, LOW);
-  PCF2.digitalWrite(P_AA4, LOW);
-  //ESTABLECER POR DEFECTO EL MODO BYPASS
-  PCF2.digitalWrite(P_S_BYPASS1, LOW);
-  PCF2.digitalWrite(P_S_BYPASS2, LOW);
-  PCF2.digitalWrite(P_S_BYPASS3, LOW);
-  PCF2.digitalWrite(P_S_BYPASS4, LOW);
+   
   digitalWrite(P_S_BYPASS_sts, HIGH); 
   /*sound*/
   for(uint8_t i = 0; i<4; i++){
@@ -138,13 +133,13 @@ void setup() {
   strcpy(config.gateway, net.GATEWAY.toString().c_str());
   strcpy(config.subnet, net.SUBNET.toString().c_str());
   strcpy(config.ipserver, net.IPSERVER.toString().c_str());
-  config.SEC_CANT_AA = 4;
+  config.SEC_CANT_AA = 2;
   config.SEC_DIAS = 7;
-  config.SEC_TMP_MIN = 20;
-  config.SEC_TMP_MAX = 24;
-  config.SEC_TMP_ALARMA = 27;
-  config.SEC_TMP_BYPASS = 30;
-  config.TIM_ENFRIO_SP = 10;
+  config.SEC_TMP_MIN = 23;
+  config.SEC_TMP_MAX = 24.5;
+  config.SEC_TMP_ALARMA = 30;
+  config.SEC_TMP_BYPASS = 32;
+  config.TIM_ENFRIO_SP = 30;
   //retauracion de valores por defecto
   if(SPIFFS_loadConfiguration(filename, &config) == true){
     

@@ -227,7 +227,9 @@ void brightC_trapSend(void){
     }
     //AA3
     if(inputRead(IN5, dataIn.in5)){
-        msg = (dataIn.in5 == true) ? "ACTIVACION ALARMA DE PRESION AA2" : "CANCELACION ALARMA DE PRESION AA2";
+        //msg = (dataIn.in5 == true) ? "ACTIVACION ALARMA DE PRESION AA2" : "CANCELACION ALARMA DE PRESION AA2";
+        msg = (dataIn.in5 == true) ? "ACTIVACION ALARMA DE ALTA PRESION AA2" : "CANCELACION ALARMA DE ALTA PRESION AA2";
+        
         severity = (dataIn.in5 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
         //xSemaphoreTake(ethernetMutex, portMAX_DELAY);
@@ -264,7 +266,8 @@ void brightC_trapSend(void){
         return;
     }
     if(inputRead(IN8, dataIn.in8)){
-        msg = (dataIn.in8 == true) ? "ACTIVASION ALARMA DE PRESION AA1" : "CANCELACION ALARMA DE PRESION AA1";
+        //msg = (dataIn.in8 == true) ? "ACTIVASION ALARMA DE PRESION AA1" : "CANCELACION ALARMA DE PRESION AA1";
+        msg = (dataIn.in8 == true) ? "ACTIVASION ALARMA DE ALTA PRESION AA1" : "CANCELACION ALARMA DE ALTA PRESION AA1";
         severity = (dataIn.in8 == true) ? TRAP_SEVERITY_CRITICAL : TRAP_SEVERITY_WARNING;
         //take mutex
         //xSemaphoreTake(ethernetMutex, portMAX_DELAY);

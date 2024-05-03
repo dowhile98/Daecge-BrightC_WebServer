@@ -103,11 +103,11 @@ function showContent(option){
                         <td id="bypass"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td>Alarma de bajo voltaje AA2</td>
                         <td id="A_SAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td >-</td>
+                        <td >Alarma de bajo voltaje AA1</td>
                         <td id="A_ABAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -115,11 +115,11 @@ function showContent(option){
                         <td id="A_SAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td >-</td>
+                        <td >Alarma de baja presión AA2</td>
                         <td id="A_ABAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>Alarma de presión AA2</td>
+                        <td>Alarma de alta presión AA2</td>
                         <td id="A_SAA3"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -127,15 +127,15 @@ function showContent(option){
                         <td id="A_ABAA3"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td>Alarma de baja presión AA1</td>
                         <td id="A_SAA4"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td >Alarma de presión AA1</td>
+                        <td >Alarma de alta presión AA1</td>
                         <td id="A_ABAA4"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td>Alarma de incendio</td>
                         <td id="AFIRE"><p><b>-</b></p></td>
                     </tr>
                     <tr>
