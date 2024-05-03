@@ -66,9 +66,9 @@ EthernetUDP udp;
 SNMP::Agent snmp;
 MIB mib;
 Brigthc_Addres_t net = {
-  .ip = IPAddress(10, 208, 85, 42),
+  .ip = IPAddress(10,44,88,178),
   .DNS = IPAddress(10, 208, 85, 41),
-  .GATEWAY = IPAddress(10, 208, 85, 41),
+  .GATEWAY = IPAddress(10,44,188,177),
   .SUBNET = IPAddress(255,255, 255, 0),
   .IPSERVER = IPAddress(172, 19, 216, 30)
 };
@@ -140,11 +140,11 @@ void setup() {
   strcpy(config.ipserver, net.IPSERVER.toString().c_str());
   config.SEC_CANT_AA = 4;
   config.SEC_DIAS = 7;
-  config.SEC_TMP_MIN = 20;
-  config.SEC_TMP_MAX = 24;
-  config.SEC_TMP_ALARMA = 27;
+  config.SEC_TMP_MIN = 23;
+  config.SEC_TMP_MAX = 25;
+  config.SEC_TMP_ALARMA = 28;
   config.SEC_TMP_BYPASS = 30;
-  config.TIM_ENFRIO_SP = 10;
+  config.TIM_ENFRIO_SP = 30;
   //retauracion de valores por defecto
   if(SPIFFS_loadConfiguration(filename, &config) == true){
     

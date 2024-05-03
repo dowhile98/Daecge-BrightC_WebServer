@@ -18,7 +18,7 @@
 #include <AsyncJson.h>
 #include <ArduinoJson.h>
 #include "SNMP_OID.h"
-
+#include "Server.h"
 /*Defines -------------------------------------------------------------------*/
 
 
