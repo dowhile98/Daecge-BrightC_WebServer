@@ -85,6 +85,30 @@ void lcd_task(void *params){
         lcd.print("TMP2: ");
         lcd.printf("%.1f C",sensorData.TMP2);
         break;
+      case 7:                   //temperatura
+        lcd.clear();
+        lcd.print("IP: "); 
+        lcd.setCursor(0, 1);
+        lcd.print(net.ip);
+        break;
+      case 8:                   //temperatura
+        lcd.clear();
+        lcd.print("GATEWAY: "); 
+        lcd.setCursor(0, 1);
+        lcd.print(net.GATEWAY);
+        break;
+      case 9:                   //temperatura
+        lcd.clear();
+        lcd.print("SUBNET: "); 
+        lcd.setCursor(0, 1);
+        lcd.print(net.SUBNET);
+        break;
+      case 10:                   //temperatura
+        lcd.clear();
+        lcd.print("SNMP MANAGER"); 
+        lcd.setCursor(0, 1);
+        lcd.print(net.IPSERVER);
+        break;
       // case 7:                   //humedad
       //   lcd.clear();
       //   lcd.print("----HUMEDAD----");

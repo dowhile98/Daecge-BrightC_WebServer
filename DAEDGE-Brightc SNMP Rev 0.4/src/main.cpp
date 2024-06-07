@@ -66,7 +66,7 @@ EthernetUDP udp;
 SNMP::Agent snmp;
 MIB mib;
 Brigthc_Addres_t net = {
-  .ip = IPAddress(10,44,88,178),
+  .ip = IPAddress(10, 208, 85, 42),
   .DNS = IPAddress(10, 208, 85, 41),
   .GATEWAY = IPAddress(10,44,188,177),
   .SUBNET = IPAddress(255,255, 255, 0),
@@ -138,10 +138,10 @@ void setup() {
   strcpy(config.gateway, net.GATEWAY.toString().c_str());
   strcpy(config.subnet, net.SUBNET.toString().c_str());
   strcpy(config.ipserver, net.IPSERVER.toString().c_str());
-  config.SEC_CANT_AA = 4;
+  config.SEC_CANT_AA = 3;
   config.SEC_DIAS = 7;
-  config.SEC_TMP_MIN = 23;
-  config.SEC_TMP_MAX = 25;
+  config.SEC_TMP_MIN = 24;
+  config.SEC_TMP_MAX = 26;
   config.SEC_TMP_ALARMA = 28;
   config.SEC_TMP_BYPASS = 30;
   config.TIM_ENFRIO_SP = 30;

@@ -86,9 +86,9 @@ void ethernet_connect(uint8_t *mac, IPAddress _ip, IPAddress _dns, IPAddress _ga
   delay(1000);
   SERIAL_PRINTLN("Iniciando conexion ETH...");
   //->
-  Ethernet.begin(mac, _ip, _dns, _gateway, _subnet);
+  //Ethernet.begin(mac, _ip, _dns, _gateway, _subnet);
   //Ethernet.begin(mac, _ip, _dns, _gateway);
-  //Ethernet.begin(mac, _ip);
+  Ethernet.begin(mac, _ip);
   delay(8000);
   lcd.clear();
   lcd.print("ADAPTADOR");

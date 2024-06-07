@@ -1,5 +1,5 @@
 {
-    "stm32-for-vscode.openOCDPath": false,
+    "stm32-for-vscode.openOCDPath": "C:\\ARM_TOOLS\\OPENOCD-20230202-0.12.0\\BIN\\OPENOCD.EXE",
     "files.associations": {
         "array": "cpp",
         "*.tcc": "cpp",

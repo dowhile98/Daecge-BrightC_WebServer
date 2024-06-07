@@ -103,11 +103,11 @@ function showContent(option){
                         <td id="bypass"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td>Alarma de presion AA3</td>
                         <td id="A_SAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td >-</td>
+                        <td >Alarma de suministro AA3</td>
                         <td id="A_ABAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -115,7 +115,7 @@ function showContent(option){
                         <td id="A_SAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td >-</td>
+                        <td >Alarma de presión AA4</td>
                         <td id="A_ABAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -127,7 +127,7 @@ function showContent(option){
                         <td id="A_ABAA3"><p><b>-</b></p></td>
                     </tr>
                     <tr>
-                        <td>-</td>
+                        <td>Alarma de suministro AA4</td>
                         <td id="A_SAA4"><p><b>-</b></p></td>
                     </tr>
                     <tr>
