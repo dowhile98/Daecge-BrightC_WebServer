@@ -17,8 +17,8 @@
 #include <AsyncJson.h>
 #include <ArduinoJson.h>
 /*Defines ---------------------------------------------------------------------------------*/
-const char* ssid = "RQUINOB";          // Reemplaza con el nombre de tu red Wi-Fi
-const char* password = "R#29qbCivil";  // Reemplaza con la contraseña de tu red Wi-Fi
+const char* ssid = "RED2";          // Reemplaza con el nombre de tu red Wi-Fi
+const char* password = "##KIR@##EPLIMIN";  // Reemplaza con la contraseña de tu red Wi-Fi
 
 /*Global variables -----------------------------------------------------------------------*/
 int status = WL_IDLE_STATUS;

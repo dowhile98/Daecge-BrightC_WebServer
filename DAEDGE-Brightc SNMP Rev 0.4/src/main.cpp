@@ -66,12 +66,18 @@ EthernetUDP udp;
 SNMP::Agent snmp;
 MIB mib;
 Brigthc_Addres_t net = {
+<<<<<<< HEAD
   // .ip = IPAddress(10, 208, 85, 42),
   .ip = IPAddress(10, 235, 125, 15),
   // .DNS = IPAddress(10, 208, 85, 41),
   .DNS = IPAddress(10,235,125,2),
   //.GATEWAY = IPAddress(10, 208, 85, 41),
   .GATEWAY = IPAddress(10, 235, 125, 2),
+=======
+  .ip = IPAddress(10, 208, 85, 42),
+  .DNS = IPAddress(10, 208, 85, 41),
+  .GATEWAY = IPAddress(10,44,188,177),
+>>>>>>> 9ff07160b803aaf4e12d1d74f6f9bf1f64eff403
   .SUBNET = IPAddress(255,255, 255, 0),
   .IPSERVER = IPAddress(172, 19, 216, 30)
 };
@@ -133,12 +139,21 @@ void setup() {
   strcpy(config.gateway, net.GATEWAY.toString().c_str());
   strcpy(config.subnet, net.SUBNET.toString().c_str());
   strcpy(config.ipserver, net.IPSERVER.toString().c_str());
+<<<<<<< HEAD
   config.SEC_CANT_AA = 2;
   config.SEC_DIAS = 7;
   config.SEC_TMP_MIN = 23;
   config.SEC_TMP_MAX = 24.5;
   config.SEC_TMP_ALARMA = 30;
   config.SEC_TMP_BYPASS = 32;
+=======
+  config.SEC_CANT_AA = 3;
+  config.SEC_DIAS = 7;
+  config.SEC_TMP_MIN = 24;
+  config.SEC_TMP_MAX = 26;
+  config.SEC_TMP_ALARMA = 28;
+  config.SEC_TMP_BYPASS = 30;
+>>>>>>> 9ff07160b803aaf4e12d1d74f6f9bf1f64eff403
   config.TIM_ENFRIO_SP = 30;
   //retauracion de valores por defecto
   if(SPIFFS_loadConfiguration(filename, &config) == true){

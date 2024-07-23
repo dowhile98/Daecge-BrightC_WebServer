@@ -103,11 +103,19 @@ function showContent(option){
                         <td id="bypass"><p><b>-</b></p></td>
                     </tr>
                     <tr>
+<<<<<<< HEAD
                         <td>Alarma de bajo voltaje AA2</td>
                         <td id="A_SAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
                         <td >Alarma de bajo voltaje AA1</td>
+=======
+                        <td>Alarma de presion AA3</td>
+                        <td id="A_SAA1"><p><b>-</b></p></td>
+                    </tr>
+                    <tr>
+                        <td >Alarma de suministro AA3</td>
+>>>>>>> 9ff07160b803aaf4e12d1d74f6f9bf1f64eff403
                         <td id="A_ABAA1"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -115,7 +123,11 @@ function showContent(option){
                         <td id="A_SAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
+<<<<<<< HEAD
                         <td >Alarma de baja presión AA2</td>
+=======
+                        <td >Alarma de presión AA4</td>
+>>>>>>> 9ff07160b803aaf4e12d1d74f6f9bf1f64eff403
                         <td id="A_ABAA2"><p><b>-</b></p></td>
                     </tr>
                     <tr>
@@ -127,7 +139,11 @@ function showContent(option){
                         <td id="A_ABAA3"><p><b>-</b></p></td>
                     </tr>
                     <tr>
+<<<<<<< HEAD
                         <td>Alarma de baja presión AA1</td>
+=======
+                        <td>Alarma de suministro AA4</td>
+>>>>>>> 9ff07160b803aaf4e12d1d74f6f9bf1f64eff403
                         <td id="A_SAA4"><p><b>-</b></p></td>
                     </tr>
                     <tr>
